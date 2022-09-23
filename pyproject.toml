@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "22-airbnb-b"
+version = "0.1.0"
+description = ""
+authors = ["Heo-JunHyeok <junhyeok_1996@naver.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "22_airbnb_b"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^4.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
