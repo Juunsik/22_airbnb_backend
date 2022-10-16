@@ -6,6 +6,13 @@ from rest_framework.views import APIView
 from .models import Category
 from .serializers import CategorySerializer
 
+""" ModelViewSet """
+# from rest_framework.viewsets import ModelViewSet
+
+# class CategoryViewSet(ModelViewSet):
+#     serializer_class = CategorySerializer
+#     queryset=Category.objects.all()
+
 
 class Categories(APIView):
     def get(self, request):
