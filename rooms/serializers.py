@@ -30,6 +30,9 @@ class RoomDetailSerializer(ModelSerializer):
         model = Room
         fields = "__all__"
 
+    # def update(self, instance, validated_data):
+    #     return
+
 
 class RoomListSerializer(ModelSerializer):
     class Meta:
