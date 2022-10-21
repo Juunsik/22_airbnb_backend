@@ -72,12 +72,16 @@ class Rooms(APIView):
         serializer = RoomListSerializer(
             all_rooms,
             many=True,
+            context={"request": request},
         )
         return Response(serializer.data)
 
     def post(self, request):
         if request.user.is_authenticated:
-            serializer = RoomDetailSerializer(data=request.data)
+            serializer = RoomDetailSerializer(
+                data=request.data,
+                context={"request": request},
+            )
             if serializer.is_valid():
                 category_pk = request.data.get("category")
                 if not category_pk:
@@ -117,7 +121,10 @@ class RoomDetail(APIView):
 
     def get(self, request, pk):
         room = self.get_object(pk)
-        serializer = RoomDetailSerializer(room)
+        serializer = RoomDetailSerializer(
+            room,
+            context={"request": request},
+        )
         return Response(serializer.data)
 
     def put(self, request, pk):
@@ -130,6 +137,7 @@ class RoomDetail(APIView):
             room,
             data=request.data,
             partial=True,
+            context={"request": request},
         )
         if serializer.is_valid():
             category_pk = request.data.get("category")
