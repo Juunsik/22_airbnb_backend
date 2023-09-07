@@ -73,7 +73,6 @@ class AmenityDetail(APIView):
 
 
 class Rooms(APIView):
-
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
@@ -119,7 +118,6 @@ class Rooms(APIView):
 
 
 class RoomDetail(APIView):
-
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_object(self, pk):
@@ -186,7 +184,6 @@ class RoomDetail(APIView):
 
 
 class RoomReviews(APIView):
-
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_object(self, pk):
@@ -245,7 +242,6 @@ class RoomAmenities(APIView):
 
 
 class RoomPhotos(APIView):
-
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_object(self, pk):
@@ -268,7 +264,6 @@ class RoomPhotos(APIView):
 
 
 class RoomBookings(APIView):
-
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_object(self, pk):
@@ -295,6 +290,12 @@ class RoomBookings(APIView):
         room = self.get_object(pk)
         serializer = CreateRoomBookingSerializer(data=request.data)
         if serializer.is_valid():
-            return Response({"ok": True})
+            booking = serializer.save(
+                room=room,
+                user=request.user,
+                kind=Booking.BookingKindChocies.ROOM,
+            )
+            serializer = PublicBookingSerializer(booking)
+            return Response(serializer.data)
         else:
             return Response(serializer.errors)
